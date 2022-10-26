@@ -1,10 +1,13 @@
 package com.arka99.AB_Bank_Backend.configuration;
 
+import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -33,17 +36,34 @@ public class SecurityConfiguration {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
-//        using the inmemory userdetailsmanager with default password encoder
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
+//        using the InMemoryUserDetailsManager with default password encoder
+//        UserDetails admin = User.withDefaultPasswordEncoder()
+//                .username("admin")
+//                .password("12345")
+//                .authorities("admin")
+//                .build();
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("12345")
+//                .authorities("user")
+//                .build();
+//        return new InMemoryUserDetailsManager(admin,user);
+
+//        Using the InMemoryUserDetailsManager with a separate Bean of PasswordEncoder
+        UserDetails admin = User.withUsername("admin")
                 .password("12345")
                 .authorities("admin")
                 .build();
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
+        UserDetails user = User.withUsername("user")
                 .password("12345")
                 .authorities("user")
                 .build();
         return new InMemoryUserDetailsManager(admin,user);
+    }
+
+//    Using a bean of NoOpsPasswordEncoder
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }
