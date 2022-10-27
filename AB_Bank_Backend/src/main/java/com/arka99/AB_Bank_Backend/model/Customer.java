@@ -15,12 +15,14 @@ import javax.persistence.Id;
 @EqualsAndHashCode
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private int id;
     private String email;
+    @EqualsAndHashCode.Exclude
     private String password;
+    @EqualsAndHashCode.Exclude
     private String role;
 
 }

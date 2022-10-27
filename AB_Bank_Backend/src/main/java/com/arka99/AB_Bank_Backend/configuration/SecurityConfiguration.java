@@ -20,9 +20,10 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
+        httpSecurity.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/myAccount","/myBalance","/myLoans","/myCards").authenticated()
-                .antMatchers("/contacts","/notices").permitAll()
+                .antMatchers("/contacts","/notices","/register","/getCustomers").permitAll()
                 .and().formLogin()
                 .and().httpBasic();
         return httpSecurity.build();
