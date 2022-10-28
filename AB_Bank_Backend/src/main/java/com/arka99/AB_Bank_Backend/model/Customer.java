@@ -21,6 +21,7 @@ public class Customer {
     private int id;
     private String email;
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private String password;
     @EqualsAndHashCode.Exclude
     private String role;
