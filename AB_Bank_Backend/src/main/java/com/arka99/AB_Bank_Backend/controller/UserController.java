@@ -5,16 +5,16 @@ import com.arka99.AB_Bank_Backend.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
-public class registerController {
+@CrossOrigin(origins = "http://localhost:4200")
+public class UserController {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
@@ -29,6 +29,7 @@ public class registerController {
             if(!customers.contains(customer)) {
                 String hashedPassword = passwordEncoder.encode(customer.getPassword());
                 customer.setPassword(hashedPassword);
+                customer.setCreateDt(String.valueOf(new Date(System.currentTimeMillis())));
                 customer1 = customerRepository.save(customer);
                 if(customer1.getId()>0) {
                     response = ResponseEntity.status(HttpStatus.CREATED).body("Given user Details are successfully registered");
@@ -47,5 +48,15 @@ public class registerController {
     public List<Customer> getCustomers() {
         customerRepository.findAll().forEach(System.out::println);
         return customerRepository.findAll();
+    }
+    @RequestMapping("/user")
+    public Customer getUserDetails(Authentication authentication) {
+        List<Customer> customers = customerRepository.findCustomerByEmail(authentication.getName());
+        if(customers.size()>0) {
+            return customers.get(0);
+        }
+        else {
+            return null;
+        }
     }
 }
