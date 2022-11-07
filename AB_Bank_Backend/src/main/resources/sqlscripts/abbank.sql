@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 06, 2022 at 11:30 PM
+-- Generation Time: Nov 08, 2022 at 12:49 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -146,7 +146,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`customer_id`, `name`, `email`, `mobile_number`, `password`, `role`, `create_dt`) VALUES
 (1, 'Arka Bhuiyan', 'arka.bhuiyan@bjitgroup.com', '9876548337', '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2', 'admin', '2022-11-03'),
-(2, 'Nipa Howlader', 'nipa.howlader@bjitgroup.com', '9876548340', '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2', 'user', '2022-11-03');
+(2, 'Nipa Howlader', 'nipa.howlader@bjitgroup.com', '9876548340', '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2', 'user', '2022-11-03'),
+(4, 'Farhan Zaman', 'farhan.zaman@bjitgroup.com', '01712991356', '$2a$10$CRdFUoVhfGwOs6GrSoSpBeKpON2alOGzaK61m.xqHjw4x2021qQgy', 'User', '2022-11-08');
 
 -- --------------------------------------------------------
 
@@ -289,7 +290,7 @@ ALTER TABLE `cards`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `loans`
