@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class NoticesController {
 
     @Autowired

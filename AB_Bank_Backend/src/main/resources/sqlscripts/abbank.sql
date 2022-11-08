@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2022 at 12:49 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Generation Time: Nov 08, 2022 at 12:29 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -67,14 +66,14 @@ CREATE TABLE `account_transactions` (
 --
 
 INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`, `transaction_amt`, `closing_balance`, `create_dt`) VALUES
-('ffb16580-5a85-11ed-9708-50814072c959', 2147483647, 1, '0000-00-00', 'Coffee Shop', 'Withdrawal', 30, 34500, '0000-00-00'),
-('ffb16580-5a85-11ed-9708-50814072d860', 2147483646, 2, '0000-00-00', 'Tea Shop', 'Withdrawal', 30, 34500, '0000-00-00'),
-('ffb1dc9b-5a85-11ed-9708-50814072c959', 2147483647, 1, '0000-00-00', 'Uber', 'Withdrawal', 100, 34400, '0000-00-00'),
-('ffb1dc9b-5a85-11ed-9708-50814072d860', 2147483646, 2, '0000-00-00', 'DHL', 'Withdrawal', 100, 34400, '0000-00-00'),
-('ffb2649e-5a85-11ed-9708-50814072c959', 2147483647, 1, '0000-00-00', 'Self Deposit', 'Deposit', 500, 34900, '0000-00-00'),
-('ffb2649e-5a85-11ed-9708-50814072d860', 2147483646, 2, '0000-00-00', 'Self Deposit', 'Deposit', 500, 34900, '0000-00-00'),
-('ffb2f93f-5a85-11ed-9708-50814072c959', 2147483647, 1, '0000-00-00', 'Ebay', 'Withdrawal', 600, 34300, '0000-00-00'),
-('ffb2f93f-5a85-11ed-9708-50814072d860', 2147483646, 2, '0000-00-00', 'Ebay', 'Withdrawal', 600, 34300, '0000-00-00'),
+('ffb16580-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-02', 'Coffee Shop', 'Withdrawal', 30, 34500, '2022-11-02'),
+('ffb16580-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-02', 'Tea Shop', 'Withdrawal', 30, 34500, '2022-11-02'),
+('ffb1dc9b-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-02', 'Uber', 'Withdrawal', 100, 34400, '2022-11-02'),
+('ffb1dc9b-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-02', 'DHL', 'Withdrawal', 100, 34400, '2022-11-02'),
+('ffb2649e-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-02', 'Self Deposit', 'Deposit', 500, 34900, '2022-11-02'),
+('ffb2649e-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-02', 'Self Deposit', 'Deposit', 500, 34900, '2022-11-02'),
+('ffb2f93f-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-02', 'Ebay', 'Withdrawal', 600, 34300, '2022-11-02'),
+('ffb2f93f-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-02', 'Ebay', 'Withdrawal', 600, 34300, '2022-11-02'),
 ('ffb36b32-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-01', 'OnlineTransfer', 'Deposit', 700, 35000, '2022-11-01'),
 ('ffb36b32-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-01', 'OnlineTransfer', 'Deposit', 700, 35000, '2022-11-01'),
 ('ffb3f6f5-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-02', 'Amazon.com', 'Withdrawal', 100, 34900, '2022-11-02'),

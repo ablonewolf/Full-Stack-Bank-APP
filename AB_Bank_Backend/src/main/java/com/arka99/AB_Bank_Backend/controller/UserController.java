@@ -13,7 +13,6 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     @Autowired
     private CustomerRepository customerRepository;
@@ -25,7 +24,7 @@ public class UserController {
         ResponseEntity response = null;
 
         try{
-            List<Customer> customers = customerRepository.findAll();
+            List<Customer> customers = (List<Customer>) customerRepository.findAll();
             if(!customers.contains(customer)) {
                 String hashedPassword = passwordEncoder.encode(customer.getPassword());
                 customer.setPassword(hashedPassword);
@@ -47,7 +46,7 @@ public class UserController {
     @GetMapping("/getCustomers")
     public List<Customer> getCustomers() {
         customerRepository.findAll().forEach(System.out::println);
-        return customerRepository.findAll();
+        return (List<Customer>) customerRepository.findAll();
     }
     @RequestMapping("/user")
     public Customer getUserDetails(Authentication authentication) {

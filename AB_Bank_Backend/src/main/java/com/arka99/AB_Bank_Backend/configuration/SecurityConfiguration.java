@@ -6,16 +6,33 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
+import java.util.Collections;
 
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeRequests()
+        httpSecurity.cors().configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration configuration = new CorsConfiguration();
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                        configuration.setAllowedMethods(Collections.singletonList("*"));
+                        configuration.setAllowCredentials(true);
+                        configuration.setAllowedHeaders(Collections.singletonList("*"));
+                        configuration.setMaxAge(3600L);
+                        return configuration;
+                    }
+                }).and()
+                .csrf().ignoringAntMatchers("/contacts","/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and().authorizeRequests()
                 .antMatchers("/myAccount","/myBalance","/myLoans","/myCards","/user","/getCustomers").authenticated()
                 .antMatchers("/contacts","/notices","/register").permitAll()
                 .and().formLogin()

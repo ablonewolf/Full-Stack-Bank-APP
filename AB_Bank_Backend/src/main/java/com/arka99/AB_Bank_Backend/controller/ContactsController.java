@@ -9,7 +9,6 @@ import java.sql.Date;
 import java.util.Random;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class ContactsController {
 
     @Autowired

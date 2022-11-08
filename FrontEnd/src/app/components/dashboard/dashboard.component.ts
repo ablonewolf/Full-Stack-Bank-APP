@@ -17,6 +17,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     if(sessionStorage.getItem('userdetails')){
       this.user = JSON.parse(sessionStorage.getItem('userdetails') || "");
+    //   let xsrf = sessionStorage.getItem('XSRF-TOKEN');
+    // if (xsrf) {
+    //   console.log(xsrf);
+    // }
     }
   }
 
