@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2022 at 12:29 PM
+-- Generation Time: Nov 09, 2022 at 04:48 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -78,6 +78,34 @@ INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `custome
 ('ffb36b32-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-01', 'OnlineTransfer', 'Deposit', 700, 35000, '2022-11-01'),
 ('ffb3f6f5-5a85-11ed-9708-50814072c959', 2147483647, 1, '2022-11-02', 'Amazon.com', 'Withdrawal', 100, 34900, '2022-11-02'),
 ('ffb3f6f5-5a85-11ed-9708-50814072d860', 2147483646, 2, '2022-11-02', 'Amazon.com', 'Withdrawal', 100, 34900, '2022-11-02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authorities`
+--
+
+CREATE TABLE `authorities` (
+  `id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `authorities`
+--
+
+INSERT INTO `authorities` (`id`, `customer_id`, `name`) VALUES
+(1, 1, 'VIEWACCOUNT'),
+(2, 1, 'VIEWCARDS'),
+(3, 1, 'VIEWLOANS'),
+(4, 1, 'VIEWBALANCE'),
+(5, 2, 'VIEWACCOUNT'),
+(6, 2, 'VIEWCARDS'),
+(7, 2, 'VIEWLOANS'),
+(8, 2, 'VIEWBALANCE'),
+(9, 4, 'VIEWACCOUNT'),
+(10, 4, 'VIEWBALANCE');
 
 -- --------------------------------------------------------
 
@@ -244,6 +272,13 @@ ALTER TABLE `account_transactions`
   ADD KEY `account_number` (`account_number`);
 
 --
+-- Indexes for table `authorities`
+--
+ALTER TABLE `authorities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
 -- Indexes for table `cards`
 --
 ALTER TABLE `cards`
@@ -278,6 +313,12 @@ ALTER TABLE `notice_details`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `authorities`
+--
+ALTER TABLE `authorities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `cards`
@@ -319,6 +360,12 @@ ALTER TABLE `accounts`
 ALTER TABLE `account_transactions`
   ADD CONSTRAINT `accounts_ibfk_2` FOREIGN KEY (`account_number`) REFERENCES `accounts` (`account_number`) ON DELETE CASCADE,
   ADD CONSTRAINT `acct_user_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `authorities`
+--
+ALTER TABLE `authorities`
+  ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`);
 
 --
 -- Constraints for table `cards`
