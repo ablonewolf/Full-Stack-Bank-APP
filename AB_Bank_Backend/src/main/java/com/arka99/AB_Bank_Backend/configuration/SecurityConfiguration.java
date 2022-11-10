@@ -1,5 +1,6 @@
 package com.arka99.AB_Bank_Backend.configuration;
 
+import com.arka99.AB_Bank_Backend.model.Authorities;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +34,11 @@ public class SecurityConfiguration {
                 }).and()
                 .csrf().ignoringAntMatchers("/contacts","/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().authorizeRequests()
-                .antMatchers("/myAccount","/myBalance","/myLoans","/myCards","/user","/getCustomers").authenticated()
+                .antMatchers("/myAccount").hasAuthority(Authorities.VIEWACCOUNT.name())
+                .antMatchers("/myBalance").hasAnyAuthority(Authorities.VIEWACCOUNT.name(),Authorities.VIEWBALANCE.name())
+                .antMatchers("/myLoans").hasAuthority(Authorities.VIEWLOANS.name())
+                .antMatchers("/myCards").hasAuthority(Authorities.VIEWCARDS.name())
+                .antMatchers("/user").authenticated()
                 .antMatchers("/contacts","/notices","/register").permitAll()
                 .and().formLogin()
                 .and().httpBasic();

@@ -1,5 +1,6 @@
 package com.arka99.AB_Bank_Backend.configuration;
 
+import com.arka99.AB_Bank_Backend.model.Authority;
 import com.arka99.AB_Bank_Backend.model.Customer;
 import com.arka99.AB_Bank_Backend.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ABBankAuthenticationProvider implements AuthenticationProvider {
@@ -32,9 +34,7 @@ public class ABBankAuthenticationProvider implements AuthenticationProvider {
         List<Customer> customers = customerRepository.findCustomerByEmail(username);
         if(customers.size()>0) {
             if(passwordEncoder.matches(password,customers.get(0).getPassword())) {
-                List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(customers.get(0).getRole()));
-                return new UsernamePasswordAuthenticationToken(username,password,authorities);
+                return new UsernamePasswordAuthenticationToken(username,password,getAuthorities(customers.get(0).getAuthorities()));
             }
             else {
                 throw new BadCredentialsException("Invalid password");
@@ -48,5 +48,12 @@ public class ABBankAuthenticationProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+    }
+    private List<GrantedAuthority> getAuthorities(Set<Authority> authorities) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        authorities.forEach(authority -> {
+            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
+        });
+        return grantedAuthorities;
     }
 }
