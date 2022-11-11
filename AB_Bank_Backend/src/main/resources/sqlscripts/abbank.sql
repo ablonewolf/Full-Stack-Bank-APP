@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2022 at 04:48 AM
+-- Generation Time: Nov 11, 2022 at 07:13 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -96,16 +96,10 @@ CREATE TABLE `authorities` (
 --
 
 INSERT INTO `authorities` (`id`, `customer_id`, `name`) VALUES
-(1, 1, 'VIEWACCOUNT'),
-(2, 1, 'VIEWCARDS'),
-(3, 1, 'VIEWLOANS'),
-(4, 1, 'VIEWBALANCE'),
-(5, 2, 'VIEWACCOUNT'),
-(6, 2, 'VIEWCARDS'),
-(7, 2, 'VIEWLOANS'),
-(8, 2, 'VIEWBALANCE'),
-(9, 4, 'VIEWACCOUNT'),
-(10, 4, 'VIEWBALANCE');
+(11, 1, 'ROLE_USER'),
+(12, 1, 'ROLE_ADMIN'),
+(13, 2, 'ROLE_USER'),
+(14, 4, 'ROLE_USER');
 
 -- --------------------------------------------------------
 
@@ -318,7 +312,7 @@ ALTER TABLE `notice_details`
 -- AUTO_INCREMENT for table `authorities`
 --
 ALTER TABLE `authorities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `cards`

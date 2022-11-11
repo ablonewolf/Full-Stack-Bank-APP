@@ -12,7 +12,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 import java.util.Collections;
 
 @Configuration
@@ -34,10 +33,14 @@ public class SecurityConfiguration {
                 }).and()
                 .csrf().ignoringAntMatchers("/contacts","/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().authorizeRequests()
-                .antMatchers("/myAccount").hasAuthority(Authorities.VIEWACCOUNT.name())
-                .antMatchers("/myBalance").hasAnyAuthority(Authorities.VIEWACCOUNT.name(),Authorities.VIEWBALANCE.name())
-                .antMatchers("/myLoans").hasAuthority(Authorities.VIEWLOANS.name())
-                .antMatchers("/myCards").hasAuthority(Authorities.VIEWCARDS.name())
+//                .antMatchers("/myAccount").hasAuthority(Authorities.VIEWACCOUNT.name())
+//                .antMatchers("/myBalance").hasAnyAuthority(Authorities.VIEWACCOUNT.name(),Authorities.VIEWBALANCE.name())
+//                .antMatchers("/myLoans").hasAuthority(Authorities.VIEWLOANS.name())
+//                .antMatchers("/myCards").hasAuthority(Authorities.VIEWCARDS.name())
+                .antMatchers("/myAccount").hasRole("USER")
+                .antMatchers("/myBalance").hasAnyRole("USER","ADMIN")
+                .antMatchers("/myLoans").hasAuthority("USER")
+                .antMatchers("/myCards").hasAuthority("USER")
                 .antMatchers("/user").authenticated()
                 .antMatchers("/contacts","/notices","/register").permitAll()
                 .and().formLogin()
