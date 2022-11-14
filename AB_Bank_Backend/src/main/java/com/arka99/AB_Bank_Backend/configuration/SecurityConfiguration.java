@@ -1,5 +1,8 @@
 package com.arka99.AB_Bank_Backend.configuration;
 
+import com.arka99.AB_Bank_Backend.filter.AuthenticationLoggingAtFilter;
+import com.arka99.AB_Bank_Backend.filter.AuthenticationLoggingFilter;
+import com.arka99.AB_Bank_Backend.filter.RequestValidationBeforeFilter;
 import com.arka99.AB_Bank_Backend.model.Authorities;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -32,15 +36,18 @@ public class SecurityConfiguration {
                     }
                 }).and()
                 .csrf().ignoringAntMatchers("/contacts","/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().authorizeRequests()
+                .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthenticationLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthenticationLoggingFilter(), BasicAuthenticationFilter.class)
+                .authorizeRequests()
 //                .antMatchers("/myAccount").hasAuthority(Authorities.VIEWACCOUNT.name())
 //                .antMatchers("/myBalance").hasAnyAuthority(Authorities.VIEWACCOUNT.name(),Authorities.VIEWBALANCE.name())
 //                .antMatchers("/myLoans").hasAuthority(Authorities.VIEWLOANS.name())
 //                .antMatchers("/myCards").hasAuthority(Authorities.VIEWCARDS.name())
                 .antMatchers("/myAccount").hasRole("USER")
                 .antMatchers("/myBalance").hasAnyRole("USER","ADMIN")
-                .antMatchers("/myLoans").hasAuthority("USER")
-                .antMatchers("/myCards").hasAuthority("USER")
+                .antMatchers("/myLoans").hasRole("USER")
+                .antMatchers("/myCards").hasRole("USER")
                 .antMatchers("/user").authenticated()
                 .antMatchers("/contacts","/notices","/register").permitAll()
                 .and().formLogin()
