@@ -1,4 +1,4 @@
 /AB_Bank_Backend/.idea/
-/FrontEnd/node_modules/**
+/FrontEnd/node_modules/
 /FrontEnd/.angular/**
 /AB_Bank_Backend/target/**
