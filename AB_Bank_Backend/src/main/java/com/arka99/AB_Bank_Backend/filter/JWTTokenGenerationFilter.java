@@ -26,7 +26,8 @@ public class JWTTokenGenerationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null) {
-            SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
+//            System.out.println(KeyGenerator.getKey());
+            SecretKey key = Keys.hmacShaKeyFor(KeyGenerator.getKey().getBytes(StandardCharsets.UTF_8));
             String jwt = Jwts.builder().setIssuer("AB Bank").setSubject("JWT Token")
                     .claim("username",authentication.getName())
                     .claim("authorities",populateAuthorities(authentication.getAuthorities()))
