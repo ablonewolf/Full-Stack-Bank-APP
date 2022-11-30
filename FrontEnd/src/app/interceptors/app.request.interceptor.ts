@@ -18,7 +18,7 @@ export class XhrInterceptor implements HttpInterceptor {
     }
     else {
       let authorization = sessionStorage.getItem('Authorization');
-      console.log(authorization);
+      // console.log(authorization);
       if(authorization){
         httpHeaders = httpHeaders.append('Authorization', authorization);  
       }

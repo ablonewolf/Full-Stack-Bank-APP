@@ -51,7 +51,7 @@ public class SecurityConfiguration {
 //                .antMatchers("/myCards").hasAuthority(Authorities.VIEWCARDS.name())
                 .antMatchers("/myAccount").hasRole("USER")
                 .antMatchers("/myBalance").hasAnyRole("USER","ADMIN")
-                .antMatchers("/myLoans").hasRole("USER")
+                .antMatchers("/myLoans").authenticated()
                 .antMatchers("/myCards").hasRole("USER")
                 .antMatchers("/user").authenticated()
                 .antMatchers("/contacts","/notices","/register").permitAll()
