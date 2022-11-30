@@ -3,9 +3,13 @@ package com.arka99.AB_Bank_Backend.controller;
 import com.arka99.AB_Bank_Backend.model.Contact;
 import com.arka99.AB_Bank_Backend.repositories.ContactsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -14,10 +18,19 @@ public class ContactsController {
     @Autowired
     private ContactsRepository contactsRepository;
     @PostMapping ("/contact")
-    public Contact saveContactInquiryDetails(@RequestBody Contact contact) {
+    @PreFilter("filterObject.contactName != 'Test'")
+    public List<Contact> saveContactInquiryDetails(@RequestBody List<Contact> contacts) {
+        if(contacts.size() >0) {
+        Contact contact = contacts.get(0);
         contact.setContactId(getServiceReqNumber());
         contact.setCreateDt(new Date(System.currentTimeMillis()));
-        return contactsRepository.save(contact);
+        contact = contactsRepository.save(contact);
+        List<Contact> returnContacts = new ArrayList<>();
+        returnContacts.add(contact);
+        return returnContacts; }
+        else {
+            return contacts;
+        }
     }
     public String getServiceReqNumber() {
         Random random = new Random();

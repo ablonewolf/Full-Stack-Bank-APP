@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                         return configuration;
                     }
                 }).and()
-                .csrf().ignoringAntMatchers("/contacts","/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrf().ignoringAntMatchers("/contact","/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthenticationLoggingAtFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthenticationLoggingFilter(), BasicAuthenticationFilter.class)
@@ -54,7 +54,7 @@ public class SecurityConfiguration {
                 .antMatchers("/myLoans").authenticated()
                 .antMatchers("/myCards").hasRole("USER")
                 .antMatchers("/user").authenticated()
-                .antMatchers("/contacts","/notices","/register").permitAll()
+                .antMatchers("/contact","/notices","/register").permitAll()
                 .and().formLogin()
                 .and().httpBasic();
         return httpSecurity.build();
