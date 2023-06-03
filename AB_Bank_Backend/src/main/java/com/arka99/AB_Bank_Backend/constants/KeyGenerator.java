@@ -7,7 +7,7 @@ public class KeyGenerator {
     private static String generateKey() {
         String myChars ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder builder = new StringBuilder();
-        for(int i=0;i<32;i++) {
+        for(int i=0;i<myChars.length();i++) {
             int index = (int) (myChars.length() * Math.random());
             builder.append(myChars.charAt(index));
         }
